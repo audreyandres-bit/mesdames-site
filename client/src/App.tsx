@@ -5,27 +5,13 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/prestations" component={() => {
-        const Services = require("./pages/Services").default;
-        return <Services />;
-      }} />
-      <Route path="/reset" component={() => {
-        const Reset = require("./pages/Reset").default;
-        return <Reset />;
-      }} />
-      <Route path="/cartes-cadeaux" component={() => {
-        const GiftCards = require("./pages/GiftCards").default;
-        return <GiftCards />;
-      }} />
-      <Route path="/404" component={NotFound} />
+      <Route path={"/"} component={Home} />
+      <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
@@ -46,13 +32,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-1">
-              <Router />
-            </main>
-            <Footer />
-          </div>
+          <Router />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
