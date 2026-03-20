@@ -1,7 +1,6 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { giftCardsRouter } from "./routers/gift-cards";
 import { publicProcedure, router } from "./_core/trpc";
 
 export const appRouter = router({
@@ -18,7 +17,7 @@ export const appRouter = router({
     }),
   }),
 
-  giftCards: giftCardsRouter,
+  // Feature routers will be added here
 });
 
 export type AppRouter = typeof appRouter;

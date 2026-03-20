@@ -3,11 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Heart, Leaf, Sparkles, Wind } from "lucide-react";
 import { Link } from "wouter";
 import { RESET_PROGRAM } from "@shared/services";
-import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function Home() {
-  const { user } = useAuth();
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
@@ -76,47 +73,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="py-16 px-4">
-        <div className="container max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
-            Galerie de nos Soins
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {[
-              {
-                src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/head-spa_f9a1136e.jpg",
-                alt: "Head Spa",
-                title: "Head Spa",
-              },
-              {
-                src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/drainage_5f1f787e.jpg",
-                alt: "Drainage Lymphatique",
-                title: "Drainage Lymphatique",
-              },
-              {
-                src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/reflexologie_e21a3299.jpg",
-                alt: "Réflexologie",
-                title: "Réflexologie",
-              },
-            ].map((image, idx) => (
-              <div key={idx} className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                />
-                <div className="p-4 bg-card">
-                  <h3 className="font-semibold text-center">{image.title}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* RESET Program Preview */}
-      <section className="py-16 px-4 bg-card">
+      <section className="py-16 px-4">
         <div className="container max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -153,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* Services Preview */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-card">
         <div className="container max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
             Nos Prestations
@@ -194,7 +152,7 @@ export default function Home() {
       </section>
 
       {/* Gift Cards CTA */}
-      <section className="py-16 px-4 bg-card">
+      <section className="py-16 px-4">
         <div className="container max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
             Offrez une Expérience
@@ -211,7 +169,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-card">
         <div className="container max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8">
             Nous Contacter
