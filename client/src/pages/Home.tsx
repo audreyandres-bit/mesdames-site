@@ -10,16 +10,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Hero Banner with Image */}
-      <section className="relative h-96 md:h-96 overflow-hidden">
-        <img
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/ShineCreativeMedia83_7e9b7c63.jpg"
-          alt="MESDAMES Institut de Bien-Être"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/20"></div>
-      </section>
-
       {/* Hero Section */}
       <section className="relative py-20 px-4 md:py-32">
         <div className="container max-w-4xl mx-auto text-center">
@@ -58,27 +48,27 @@ export default function Home() {
               {
                 icon: Heart,
                 title: "Holistique",
-                description: "Nous prenons soin de vous dans votre globalité",
+                description: "Nous soignons la femme dans sa totalité",
               },
               {
                 icon: Leaf,
                 title: "Naturel",
-                description: "Des soins respectueux de votre peau et de l'environnement",
+                description: "Produits et techniques respectueux de votre peau",
               },
               {
                 icon: Sparkles,
-                title: "Transformateur",
-                description: "Une expérience qui change votre bien-être",
+                title: "Transformation",
+                description: "Un voyage vers votre meilleure version",
               },
               {
                 icon: Wind,
-                title: "Énergisant",
-                description: "Retrouvez votre équilibre et votre énergie",
+                title: "Énergie",
+                description: "Harmoniser corps, esprit et âme",
               },
             ].map((value, idx) => (
               <Card key={idx} className="p-6 text-center border-border/50">
                 <value.icon className="w-12 h-12 mx-auto mb-4 text-accent" />
-                <h3 className="font-semibold mb-2 text-lg">{value.title}</h3>
+                <h3 className="text-lg font-semibold mb-2">{value.title}</h3>
                 <p className="text-sm text-muted-foreground">{value.description}</p>
               </Card>
             ))}
@@ -86,108 +76,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Services */}
-      <section className="py-20 px-4">
+      {/* Gallery Section */}
+      <section className="py-16 px-4">
         <div className="container max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
-            Nos Prestations Phares
+            Galerie de nos Soins
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Head Spa */}
-            <Card className="overflow-hidden border-border/50 hover:shadow-lg transition-shadow">
-              <div className="h-48 overflow-hidden bg-muted">
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {[
+              {
+                src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/head-spa_f9a1136e.jpg",
+                alt: "Head Spa",
+                title: "Head Spa",
+              },
+              {
+                src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/drainage_5f1f787e.jpg",
+                alt: "Drainage Lymphatique",
+                title: "Drainage Lymphatique",
+              },
+              {
+                src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/reflexologie_e21a3299.jpg",
+                alt: "Réflexologie",
+                title: "Réflexologie",
+              },
+            ].map((image, idx) => (
+              <div key={idx} className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/headspa_0d9aa9be.jpg"
-                  alt="Head Spa"
-                  className="w-full h-full object-cover"
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 />
+                <div className="p-4 bg-card">
+                  <h3 className="font-semibold text-center">{image.title}</h3>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Head Spa</h3>
-                <p className="text-muted-foreground mb-4">
-                  Libérez vos tensions mentales avec notre rituel Head Spa apaisant et régénérant.
-                </p>
-                <Link href="/prestations">
-                  <Button variant="outline" size="sm">
-                    En savoir plus
-                  </Button>
-                </Link>
-              </div>
-            </Card>
-
-            {/* Reflexologie */}
-            <Card className="overflow-hidden border-border/50 hover:shadow-lg transition-shadow">
-              <div className="h-48 overflow-hidden bg-muted">
-                <img
-                  src="https://images.unsplash.com/photo-1544161515-81aae3ff8d23?w=500&h=400&fit=crop"
-                  alt="Réflexologie"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Réflexologie</h3>
-                <p className="text-muted-foreground mb-4">
-                  Harmonisez votre corps et votre esprit grâce à la réflexologie plantaire thérapeutique.
-                </p>
-                <Link href="/prestations">
-                  <Button variant="outline" size="sm">
-                    En savoir plus
-                  </Button>
-                </Link>
-              </div>
-            </Card>
-
-            {/* Di Nina */}
-            <Card className="overflow-hidden border-border/50 hover:shadow-lg transition-shadow">
-              <div className="h-48 overflow-hidden bg-muted">
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663402053513/c3FUuaizWc2ULGVuVwSy6o/dinina_compressed_cfd5bb30.jpg"
-                  alt="Soins Di Nina"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Soins Di Nina</h3>
-                <p className="text-muted-foreground mb-4">
-                  Réveillez la beauté naturelle de votre peau avec nos soins Di Nina premium.
-                </p>
-                <Link href="/prestations">
-                  <Button variant="outline" size="sm">
-                    En savoir plus
-                  </Button>
-                </Link>
-              </div>
-            </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* RESET Program */}
-      <section className="py-20 px-4 bg-card">
-        <div className="container max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
-            Programme RESET
-          </h2>
-          <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Un programme sur 4 semaines pour te remettre au centre. Chaque semaine, on travaille une dimension différente pour un bien-être profond.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {RESET_PROGRAM.weeks.map((week: any, idx: number) => (
-              <Card key={idx} className="p-6 border-border/50">
-                <h3 className="text-lg font-semibold mb-2 text-accent">Semaine {week.week}</h3>
-                <h4 className="text-xl font-bold mb-3">{week.title}</h4>
-                <p className="text-muted-foreground mb-4">{week.description}</p>
-                <ul className="space-y-2 text-sm">
-                  {week.benefits.map((detail: any, i: number) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="text-accent">•</span>
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
+      {/* RESET Program Preview */}
+      <section className="py-16 px-4 bg-card">
+        <div className="container max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+              {RESET_PROGRAM.title}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {RESET_PROGRAM.subtitle}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6 mb-8">
+            {RESET_PROGRAM.weeks.map((week) => (
+              <Card key={week.week} className="p-6 border-border/50 hover:shadow-lg transition-shadow">
+                <div className="text-center">
+                  <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-accent">S{week.week}</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">{week.title}</h3>
+                  <p className="text-sm text-accent font-medium mb-3">{week.soin}</p>
+                  <p className="text-xs text-muted-foreground">{week.description}</p>
+                </div>
               </Card>
             ))}
           </div>
+
           <div className="text-center">
             <Link href="/reset">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
@@ -198,63 +152,103 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services Preview */}
+      <section className="py-16 px-4">
+        <div className="container max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12">
+            Nos Prestations
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {[
+              {
+                title: "Head Spa",
+                description: "Rituels holistiques pour libérer les tensions",
+                icon: "🧠",
+              },
+              {
+                title: "Rituels Corps",
+                description: "Soins profonds qui libèrent les énergies",
+                icon: "💫",
+              },
+              {
+                title: "Réflexologie",
+                description: "Voyage vers l'équilibre profond",
+                icon: "🌿",
+              },
+            ].map((service, idx) => (
+              <Card key={idx} className="p-6 border-border/50 text-center">
+                <div className="text-4xl mb-4">{service.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link href="/prestations">
+              <Button size="lg" variant="outline">
+                Voir toutes nos prestations
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Gift Cards CTA */}
-      <section className="py-20 px-4">
-        <div className="container max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+      <section className="py-16 px-4 bg-card">
+        <div className="container max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
             Offrez une Expérience
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Offrez à vos proches une carte cadeau MESDAMES et laissez-les découvrir notre univers de bien-être.
+          <p className="text-lg text-muted-foreground mb-8">
+            Offrez à vos proches une carte cadeau MESDAMES pour un moment de bien-être inoubliable.
           </p>
           <Link href="/cartes-cadeaux">
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              Acheter une Carte Cadeau
+              Acheter une carte cadeau
             </Button>
           </Link>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 px-4 bg-card">
-        <div className="container max-w-4xl mx-auto text-center">
+      <section className="py-16 px-4">
+        <div className="container max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8">
             Nous Contacter
           </h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div>
-              <h3 className="font-semibold mb-2">Adresse</h3>
-              <p className="text-muted-foreground">
-                2 avenue bis Alfred Sauvy<br />
-                66600 Rivesaltes
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">Téléphone</h3>
+          <div className="space-y-4">
+            <p>
+              <span className="font-semibold">Adresse:</span> 2 avenue bis Alfred Sauvy, 66600 Rivesaltes
+            </p>
+            <p>
+              <span className="font-semibold">Téléphone:</span>{" "}
               <a href="tel:0672063783" className="text-accent hover:underline">
                 06 72 06 37 83
               </a>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">Réserver</h3>
+            </p>
+            <p>
+              <span className="font-semibold">Instagram:</span>{" "}
               <a
-                href="https://www.planity.com/esthetique-equilibre-66600-rivesaltes"
+                href="https://www.instagram.com/mesdames_linstitut/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-accent hover:underline"
               >
-                Via Planity
+                @mesdames_l'institut
               </a>
-            </div>
+            </p>
           </div>
-          <a
-            href="https://www.instagram.com/mesdames_linstitut/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:underline"
-          >
-            Suivez-nous sur Instagram
-          </a>
+          <div className="mt-8">
+            <a
+              href="https://www.planity.com/mesdames-66600-rivesaltes"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                Prendre rendez-vous sur Planity
+              </Button>
+            </a>
+          </div>
         </div>
       </section>
     </div>
