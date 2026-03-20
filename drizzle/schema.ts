@@ -25,4 +25,25 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Gift cards table for storing gift card purchases
+ */
+export const giftCards = mysqlTable("giftCards", {
+  id: int("id").autoincrement().primaryKey(),
+  code: varchar("code", { length: 32 }).notNull().unique(),
+  amount: int("amount").notNull(),
+  buyerId: int("buyerId").notNull(),
+  buyerEmail: varchar("buyerEmail", { length: 320 }).notNull(),
+  recipientEmail: varchar("recipientEmail", { length: 320 }).notNull(),
+  recipientName: text("recipientName"),
+  message: text("message"),
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }),
+  status: mysqlEnum("status", ["pending", "paid", "sent", "redeemed", "cancelled"]).default("pending").notNull(),
+  redeemedAt: timestamp("redeemedAt"),
+  sentAt: timestamp("sentAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type GiftCard = typeof giftCards.$inferSelect;
+export type InsertGiftCard = typeof giftCards.$inferInsert;
