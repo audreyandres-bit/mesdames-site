@@ -3,6 +3,7 @@ import { notifyOwner } from "../_core/notification";
 export interface GiftCardEmailParams {
   recipientEmail: string;
   recipientName: string;
+  recipientLastName: string;
   code: string;
   amount: number;
   message?: string;
@@ -13,6 +14,7 @@ export async function sendGiftCardEmail(params: GiftCardEmailParams): Promise<vo
   const {
     recipientEmail,
     recipientName,
+    recipientLastName,
     code,
     amount,
     message,
@@ -23,6 +25,7 @@ export async function sendGiftCardEmail(params: GiftCardEmailParams): Promise<vo
   const formattedAmount = (amount / 100).toFixed(2);
 
   // Create email content
+  const fullName = `${recipientName} ${recipientLastName}`;
   const emailContent = `
 Bonjour ${recipientName},
 
@@ -51,8 +54,8 @@ Institut de Bien-Être Holistique Féminin
   // Send notification to owner (for now, we use this as a workaround)
   try {
     await notifyOwner({
-      title: `📧 Carte Cadeau Envoyée - ${recipientName}`,
-      content: `Une carte cadeau de ${formattedAmount}€ a été envoyée à ${recipientEmail}\n\nCode: ${code}\n\nVeuillez vérifier que l'email a bien été reçu.`,
+      title: `📧 Carte Cadeau Envoyée - ${recipientName} ${recipientLastName}`,
+      content: `Une carte cadeau de ${formattedAmount}€ a été envoyée à ${fullName} (${recipientEmail})\n\nCode: ${code}\n\nVeuillez vérifier que l'email a bien été reçu.`,
     });
 
     console.log(`[Email] Gift card notification sent to owner`);

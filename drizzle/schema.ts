@@ -36,6 +36,7 @@ export const giftCards = mysqlTable("giftCards", {
   buyerEmail: varchar("buyerEmail", { length: 320 }).notNull(),
   recipientEmail: varchar("recipientEmail", { length: 320 }).notNull(),
   recipientName: text("recipientName"),
+  recipientLastName: text("recipientLastName"),
   message: text("message"),
   stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }),
   status: mysqlEnum("status", ["pending", "paid", "sent", "redeemed", "cancelled"]).default("pending").notNull(),

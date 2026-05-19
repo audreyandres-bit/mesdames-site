@@ -75,12 +75,13 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const {
     recipientEmail,
     recipientName,
+    recipientLastName,
     message,
     buyerEmail,
     amount,
   } = metadata;
 
-  if (!recipientEmail || !recipientName || !buyerEmail || !amount) {
+  if (!recipientEmail || !recipientName || !recipientLastName || !buyerEmail || !amount) {
     throw new Error("Missing required metadata fields");
   }
 
@@ -98,6 +99,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     buyerEmail,
     recipientEmail,
     recipientName,
+    recipientLastName,
     message: message || null,
     status: "paid",
     stripePaymentIntentId: session.payment_intent as string,
@@ -110,6 +112,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     await sendGiftCardEmail({
       recipientEmail,
       recipientName,
+      recipientLastName,
       code,
       amount: parseInt(amount),
       message: message || undefined,

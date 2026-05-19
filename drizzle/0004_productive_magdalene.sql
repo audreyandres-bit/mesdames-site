@@ -1,0 +1,1 @@
+ALTER TABLE `giftCards` ADD `recipientLastName` text;

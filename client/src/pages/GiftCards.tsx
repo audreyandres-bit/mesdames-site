@@ -13,9 +13,13 @@ export default function GiftCards() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [recipientEmail, setRecipientEmail] = useState("");
   const [recipientName, setRecipientName] = useState("");
+  const [recipientLastName, setRecipientLastName] = useState("");
   const [buyerEmail, setBuyerEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [promoCode, setPromoCode] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [promoError, setPromoError] = useState("");
 
   const createCheckoutMutation = trpc.giftCards.createCheckoutSession.useMutation();
 
@@ -27,7 +31,7 @@ export default function GiftCards() {
       return;
     }
 
-    if (!recipientEmail || !recipientName || !buyerEmail) {
+    if (!recipientEmail || !recipientName || !recipientLastName || !buyerEmail) {
       toast.error("Veuillez remplir tous les champs obligatoires");
       return;
     }
@@ -36,11 +40,13 @@ export default function GiftCards() {
 
     try {
       const result = await createCheckoutMutation.mutateAsync({
-        amount: selectedAmount,
+        amount: selectedAmount - discountAmount,
         recipientEmail,
         recipientName,
+        recipientLastName,
         message,
         buyerEmail,
+        promoCode,
         origin: window.location.origin,
       });
 
@@ -135,13 +141,27 @@ export default function GiftCards() {
                 {/* Recipient Info */}
                 <div>
                   <Label htmlFor="recipientName" className="text-base font-medium">
-                    Nom du destinataire *
+                    Prénom du destinataire *
                   </Label>
                   <Input
                     id="recipientName"
                     placeholder="Ex: Marie"
                     value={recipientName}
                     onChange={(e) => setRecipientName(e.target.value)}
+                    className="mt-2"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="recipientLastName" className="text-base font-medium">
+                    Nom de famille du destinataire *
+                  </Label>
+                  <Input
+                    id="recipientLastName"
+                    placeholder="Ex: Dupont"
+                    value={recipientLastName}
+                    onChange={(e) => setRecipientLastName(e.target.value)}
                     className="mt-2"
                     required
                   />
@@ -193,16 +213,76 @@ export default function GiftCards() {
                   />
                 </div>
 
+                {/* Promo Code */}
+                <div>
+                  <Label htmlFor="promoCode" className="text-base font-medium">
+                    Code promo (optionnel)
+                  </Label>
+                  <div className="flex gap-2 mt-2">
+                    <Input
+                      id="promoCode"
+                      placeholder="Ex: TEST"
+                      value={promoCode}
+                      onChange={(e) => {
+                        setPromoCode(e.target.value.toUpperCase());
+                        setPromoError("");
+                      }}
+                      className="mt-0"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={async () => {
+                        if (!promoCode) {
+                          setPromoError("Veuillez entrer un code promo");
+                          return;
+                        }
+                        // Simulate promo code validation
+                        if (promoCode === "TEST") {
+                          setDiscountAmount(selectedAmount || 0);
+                          setPromoError("");
+                          toast.success("Code promo appliqué !");
+                        } else {
+                          setPromoError("Code promo invalide");
+                          toast.error("Code promo invalide");
+                        }
+                      }}
+                      className="mt-2"
+                    >
+                      Appliquer
+                    </Button>
+                  </div>
+                  {promoError && <p className="text-red-500 text-sm mt-1">{promoError}</p>}
+                  {discountAmount > 0 && (
+                    <p className="text-green-600 text-sm mt-2">✓ Réduction de {(discountAmount / 100).toFixed(2)}€ appliquée</p>
+                  )}
+                </div>
+
                 {/* Submit Button */}
+                <div className="bg-accent/10 p-4 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Montant à payer :</span>
+                    <span className="text-xl font-bold text-accent">
+                      {selectedAmount ? ((selectedAmount - discountAmount) / 100).toFixed(2) : "0"}€
+                    </span>
+                  </div>
+                  {discountAmount > 0 && (
+                    <div className="flex justify-between items-center text-green-600 text-sm mt-2">
+                      <span>Réduction appliquée :</span>
+                      <span>-{(discountAmount / 100).toFixed(2)}€</span>
+                    </div>
+                  )}
+                </div>
+
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                  disabled={isLoading || !selectedAmount}
+                  disabled={isLoading || !selectedAmount || (selectedAmount - discountAmount) <= 0}
                 >
                   {isLoading
                     ? "Traitement en cours..."
-                    : `Payer ${selectedAmount ? (selectedAmount / 100).toFixed(2) : "0"}€`}
+                    : `Payer ${selectedAmount ? ((selectedAmount - discountAmount) / 100).toFixed(2) : "0"}€`}
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">

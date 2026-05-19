@@ -16,14 +16,16 @@ export const giftCardsRouter = router({
         amount: z.number().min(5000).max(20000),
         recipientEmail: z.string().email(),
         recipientName: z.string().min(1),
+        recipientLastName: z.string().min(1),
         message: z.string().optional(),
         buyerEmail: z.string().email(),
+        promoCode: z.string().optional(),
         origin: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
       try {
-        const session = await stripe.checkout.sessions.create({
+        const sessionConfig: any = {
           payment_method_types: ["card"],
           line_items: [
             {
@@ -42,14 +44,27 @@ export const giftCardsRouter = router({
           success_url: `${input.origin}/cartes-cadeaux?success=true`,
           cancel_url: `${input.origin}/cartes-cadeaux?cancelled=true`,
           customer_email: input.buyerEmail,
+          allow_promotion_codes: true,
           metadata: {
             recipientEmail: input.recipientEmail,
             recipientName: input.recipientName,
+            recipientLastName: input.recipientLastName,
             message: input.message || "",
             buyerEmail: input.buyerEmail,
             amount: input.amount.toString(),
           },
-        });
+        };
+
+        // Add promo code if provided
+        if (input.promoCode) {
+          sessionConfig.discounts = [
+            {
+              coupon: input.promoCode,
+            },
+          ];
+        }
+
+        const session = await stripe.checkout.sessions.create(sessionConfig);
 
         return {
           sessionId: session.id,
