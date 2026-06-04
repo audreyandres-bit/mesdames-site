@@ -117,6 +117,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       amount: parseInt(amount),
       message: message || undefined,
       buyerName: buyerEmail.split("@")[0], // Extract name from email
+      purchaseDate: new Date(), // Current date for expiration calculation
     });
 
     console.log(`[Webhook] Email sent to ${recipientEmail}`);

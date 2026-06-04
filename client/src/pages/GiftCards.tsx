@@ -306,7 +306,7 @@ export default function GiftCards() {
               },
               {
                 q: "La carte cadeau a-t-elle une date d'expiration ?",
-                a: "Non, la carte cadeau n'expire pas. Elle peut être utilisée quand le destinataire le souhaite.",
+                a: "Oui, la carte cadeau est valable 6 mois à partir de la date d'achat. La date exacte d'expiration sera indiquée dans l'email reçu par le destinataire.",
               },
               {
                 q: "Puis-je modifier le montant après achat ?",

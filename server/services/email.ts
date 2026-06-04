@@ -8,6 +8,7 @@ export interface GiftCardEmailParams {
   amount: number;
   message?: string;
   buyerName: string;
+  purchaseDate?: Date;
 }
 
 export async function sendGiftCardEmail(params: GiftCardEmailParams): Promise<void> {
@@ -19,10 +20,20 @@ export async function sendGiftCardEmail(params: GiftCardEmailParams): Promise<vo
     amount,
     message,
     buyerName,
+    purchaseDate = new Date(),
   } = params;
 
   // Format amount in euros
   const formattedAmount = (amount / 100).toFixed(2);
+
+  // Calculate expiration date (6 months from purchase)
+  const expirationDate = new Date(purchaseDate);
+  expirationDate.setMonth(expirationDate.getMonth() + 6);
+  const formattedExpirationDate = expirationDate.toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   // Create email content
   const fullName = `${recipientName} ${recipientLastName}`;
@@ -40,7 +51,7 @@ ${message ? `**Message personnel :** ${message}\n` : ""}
 2. Mentionnez votre code : ${code}
 3. Choisissez le soin qui vous correspond
 
-**Validité :** 1 an à partir de la date d'achat
+**Validité :** Valable jusqu'au ${formattedExpirationDate}
 
 Nous sommes impatientes de vous accueillir chez MESDAMES pour un moment de bien-être inoubliable ! 🌸
 
