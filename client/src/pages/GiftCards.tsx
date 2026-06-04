@@ -293,6 +293,60 @@ export default function GiftCards() {
           </div>
         </div>
 
+        {/* Printable Gift Card Preview */}
+        {selectedAmount && recipientName && recipientLastName && (
+          <div className="mt-16">
+            <h2 className="text-3xl font-serif font-bold text-center mb-12">
+              Aperçu du Bon Cadeau
+            </h2>
+            <div className="flex justify-center">
+              <div className="w-full max-w-2xl bg-amber-50 border-4 border-amber-900 p-12 rounded-lg shadow-lg" style={{
+                backgroundColor: '#F5E6D3',
+                color: '#2C1810',
+                fontFamily: 'Georgia, serif'
+              }}>
+                <div className="text-center mb-8">
+                  <h3 className="text-4xl font-bold mb-2" style={{ color: '#2C1810' }}>MESDAMES</h3>
+                  <p className="text-lg italic" style={{ color: '#4A3728' }}>Institut de Bien-Être Holistique Féminin</p>
+                </div>
+
+                <div className="border-t-2 border-b-2 border-amber-900 py-8 mb-8" style={{ borderColor: '#2C1810' }}>
+                  <h4 className="text-2xl font-bold text-center mb-4" style={{ color: '#2C1810' }}>BON CADEAU</h4>
+                  <p className="text-center text-3xl font-bold" style={{ color: '#8B6914' }}>{(selectedAmount / 100).toFixed(2)}€</p>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div>
+                    <p className="text-sm font-semibold" style={{ color: '#4A3728' }}>BÉNÉFICIAIRE :</p>
+                    <p className="text-lg font-bold" style={{ color: '#2C1810' }}>{recipientName} {recipientLastName}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold" style={{ color: '#4A3728' }}>VALABLE JUSQU'AU :</p>
+                    <p className="text-lg font-bold" style={{ color: '#2C1810' }}>
+                      {new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </p>
+                  </div>
+                  {message && (
+                    <div>
+                      <p className="text-sm font-semibold" style={{ color: '#4A3728' }}>MESSAGE :</p>
+                      <p className="text-base italic" style={{ color: '#2C1810' }}>"{message}"</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="border-t-2 border-amber-900 pt-6 text-center text-xs" style={{ borderColor: '#2C1810', color: '#4A3728' }}>
+                  <p>Studio Mesdames • 2 avenue Alfred Sauvy, 66600 Rivesaltes</p>
+                  <p>06 72 06 37 83 • www.mesdames.manus.space</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* FAQ Section */}
         <div className="mt-16">
           <h2 className="text-3xl font-serif font-bold text-center mb-12">
