@@ -63,7 +63,7 @@ export default function GiftCards() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground py-12 px-4">
+    <div className="min-h-screen bg-amber-50 text-gray-900 py-12 px-4" style={{ backgroundColor: '#F5E6D3', color: '#2C1810' }}>
       <div className="container max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
