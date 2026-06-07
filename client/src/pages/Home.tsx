@@ -152,6 +152,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gift Cards Section */}
+      <section className="py-16 px-4 bg-accent/5">
+        <div className="container max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+            Offrez une Expérience
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Offrez à vos proches une carte cadeau MESDAMES pour un moment de bien-être inoubliable.
+          </p>
+          <Link href="/cartes-cadeaux">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              Acheter une carte cadeau
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* Services Preview */}
       <section className="py-16 px-4">
         <div className="container max-w-5xl mx-auto">
